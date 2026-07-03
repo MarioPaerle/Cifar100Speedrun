@@ -12,7 +12,7 @@ Inspired by Keller Jordan CIFAR-10 Airbench and the local Leonardo CIFAR-10 repl
 - Official run count: 30 runs.
 - Official epoch budget: 16 epochs.
 - Baseline: `train_cifar100_resnet_muon.py` only.
-- Compiled baseline: enabled by default with `torch.compile` / `C100_COMPILE=1`, default `C100_COMPILE_MODE=reduce-overhead`; warmup pays compile/cold-start cost before measured runs. `max-autotune` is intentionally not the default because it can spend minutes autotuning on Leonardo.
+- Compiled baseline: enabled by default with `torch.compile` / `C100_COMPILE=1`, default `C100_COMPILE_MODE=default`; warmup pays compile/cold-start cost before measured runs. `max-autotune` is intentionally not the default because it can spend minutes autotuning on Leonardo.
 - Timed quantity: training time only; validation stays frozen and untimed.
 
 ## Record metric
@@ -66,7 +66,7 @@ sbatch slurm/smoke.sh
 
 ## Evidence
 
-See `BASELINE_PROBES.md` for smoke/probe logs. Current v0 setting is `k = 70%`, 30 official runs, 16 epochs, `C100_COMPILE_MODE=reduce-overhead`. The official 30-run baseline is still unrun.
+See `BASELINE_PROBES.md` for smoke/probe logs. Current v0 setting is `k = 70%`, 30 official runs, 16 epochs, `C100_COMPILE_MODE=default`. The official 30-run baseline is still unrun.
 
 ## Feasibility note
 

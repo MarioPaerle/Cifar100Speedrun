@@ -57,3 +57,7 @@ Interpretation: this is the current v0 baseline setting for `k = 70%`: 16 epochs
 ## Time Estimate
 
 Measured one-run training time at 16 epochs is `25.86s`. Official 30-run timed training is therefore about `12.9 min`. Add `~40-50s` compile/cold warmup, sleeps, validation gates, and Slurm overhead; expected wall time is roughly `15-17 min` on a single Leonardo A100.
+
+## Default compile mode update
+
+After the probes above, the repo default was changed from `reduce-overhead` to `default`, meaning plain `torch.compile()` with no explicit mode. This is intended to be simpler and avoid mode-specific overhead. The old `reduce-overhead` probe remains valid as historical evidence, but it is no longer the default.

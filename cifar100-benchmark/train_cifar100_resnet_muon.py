@@ -218,10 +218,13 @@ def main():
     train_images, train_labels = load_split("train")
     test_images, test_labels = load_split("test")
     compile_enabled = os.getenv("C100_COMPILE", "1") != "0"
-    compile_mode = os.getenv("C100_COMPILE_MODE", "reduce-overhead")
+    compile_mode = os.getenv("C100_COMPILE_MODE", "default")
     model = SimpleResNet().cuda().to(torch.float16).to(memory_format=torch.channels_last)
     if compile_enabled:
-        model.compile(mode=compile_mode)
+        if compile_mode in ("", "default", "none"):
+            model.compile()
+        else:
+            model.compile(mode=compile_mode)
     print(f"config model=simple_resnet_muon runs={runs} epochs={epochs} batch={batch_size} target={target} compile={int(compile_enabled)} compile_mode={compile_mode if compile_enabled else off} no_tta=1")
     print("---------------------------------------------------------------------------------")
     print("|  run     |  epoch  |  train_acc  |  val_acc  |  target_hit   |  time_seconds  |")
