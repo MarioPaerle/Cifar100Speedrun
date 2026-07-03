@@ -64,9 +64,13 @@ sbatch slurm/smoke.sh
 - One plain forward pass for validation. No flips, crops, averaging, confidence branches, BN adaptation, EMA selection, or ensembles.
 - Timing excludes validation. The timer stops before validation starts; validation is an untimed pass/fail gate.
 
+## Evidence
+
+See `BASELINE_PROBES.md` for smoke/probe logs. Current v0 setting is `k = 70%`, 30 official runs, 16 epochs, `C100_COMPILE_MODE=reduce-overhead`. The official 30-run baseline is still unrun.
+
 ## Feasibility note
 
-The `k = 70%` target is mechanically configured but not yet empirically validated for the simple 12-epoch Muon-ResNet baseline. The smoke check only proves the code path executes. Run `slurm/official_baseline.sh` to measure whether the baseline clears 70% over 30 runs.
+The `k = 70%` target is mechanically configured and has one compiled 16-epoch seed clearing it at `70.58%`, but it is not yet validated over the official 30-run baseline. The smoke check only proves the code path executes. Run `slurm/official_baseline.sh` to measure whether the baseline clears 70% over 30 runs.
 
 ## Compiled one-seed probes
 
