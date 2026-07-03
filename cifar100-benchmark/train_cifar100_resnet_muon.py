@@ -193,9 +193,9 @@ def train_once(run_name, seed, train_images, train_labels, test_images, test_lab
             step += 1
             if step >= total_steps:
                 break
-    val_acc = evaluate(model, test_images, test_labels)
     ender.record(); torch.cuda.synchronize()
     time_seconds = starter.elapsed_time(ender) * 1e-3
+    val_acc = evaluate(model, test_images, test_labels)
     train_acc = evaluate(model, train_images[:10000], train_labels[:10000])
     hit = float(val_acc >= target)
     print(f"|  {str(run_name).rjust(6)}  |   eval  |     {train_acc:0.4f}  |   {val_acc:0.4f}  |       {hit:0.4f}  |      {time_seconds:0.4f}  |", flush=True)
