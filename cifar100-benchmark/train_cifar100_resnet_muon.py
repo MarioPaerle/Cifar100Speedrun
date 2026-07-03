@@ -210,7 +210,7 @@ def train_once(run_name, seed, model, train_images, train_labels, test_images, t
 
 def main():
     runs = int(os.getenv("C100_RUNS", "30"))
-    epochs = float(os.getenv("C100_EPOCHS", "14"))
+    epochs = float(os.getenv("C100_EPOCHS", "16"))
     batch_size = int(os.getenv("C100_BATCH", "1024"))
     target = float(os.getenv("C100_TARGET", "0.70"))
     seed_base = int(os.getenv("C100_SEED_BASE", "880000"))
