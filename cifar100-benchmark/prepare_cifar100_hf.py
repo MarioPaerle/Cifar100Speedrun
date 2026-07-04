@@ -1,4 +1,5 @@
 import io
+import os
 import subprocess
 from pathlib import Path
 
@@ -49,8 +50,13 @@ def convert(split: str) -> None:
 
 if __name__ == "__main__":
     ROOT.mkdir(exist_ok=True)
-    convert("train")
-    convert("test")
+    raw_splits = os.getenv("C100_PREP_SPLITS", "train,test")
+    splits = [split.strip() for split in raw_splits.split(",") if split.strip()]
+    unknown = sorted(set(splits) - set(URLS))
+    if unknown:
+        raise ValueError(f"unknown C100_PREP_SPLITS entries: {unknown}")
+    for split in splits:
+        convert(split)
     data = torch.load(ROOT / "train.pt", map_location="cpu", weights_only=True)
     x = data["images"].float().div(255)
     print("mean", [round(v, 6) for v in x.mean((0, 1, 2)).tolist()])
